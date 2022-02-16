@@ -1,0 +1,185 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hlsearch # highlight matches with the last search pattern
+set scrolloff=10 # minimum number of lines above and below the cursor
+set sidescroll=20 # minimum number of columns to scroll horizontally
+set ignorecase smartcase # ignore case in search patterns
+set showmode # message on the status line to show current mode
+set history=100000 # number of command-lines that are remembered
+set incsearch # show where search pattern typed so far matches
+# clipboard options Standard clipboard options plus `ideaput`  (default on)
+# - IdeaVim ONLY enable native idea paste action for put operations
+set clipboard+=unnamed 
+set relativenumber # show the line number relative to the line with the cursor
+set visualbell # use visual bell instead of beeping
+" set timeoutlen=1000 ttimeoutlen=0
+set notimeout
+# Define the mode that would be enabled during the refactoring 
+# (renaming, live template, introduce variable, etc)
+set idearefactormode=keep
+" ideajoin
+set ideajoin
+# multiple-cursors
+" commands: <A-n>,<A-x>,<A-p>,g<A-n>
+set multiple-cursors
+
+set highlightedyank
+let g:highlightedyank_highlight_duration = "1000"
+let g:highlightedyank_highlight_duration = "-1"
+let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+
+set NERDTree
+set surround # ys, cs, ds, S
+set which-key # <leader>
+set easymotion
+set commentary
+
+" Quit insert mode
+imap jk <Esc>
+vmap jk <Esc>
+imap kj <Esc>
+vmap kj <Esc>
+
+" Quit visual mode
+vnoremap v <Esc>
+
+" register leader
+let mapleader ="\<Space>"
+
+" editors navigation
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+
+" After block yank and paste, move cursor to the end of operated text and don't override register
+vnoremap y y`]
+vnoremap p "h_dP`]
+nnoremap p hp`]
+
+" Yank and paste from clipboard
+nnoremap ,y "+y
+vnoremap ,y "+y
+nnoremap ,yy "+yy
+nnoremap ,p "+p
+
+" have x (removes single character) not go into the default registry
+nnoremap x "_x
+" Make X an operator that removes without placing text in the default registry
+nmap X "_d
+nmap XX "_dd
+vmap X "_d
+vmap x "_d
+
+" don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
+
+" Change line, better use S for this.
+nmap cc 1S
+
+" Copy Word
+nmap ,c yiw
+
+" Reselect last-pasted text
+nnoremap gp `[v`]
+" move line up/down
+nnoremap <leader>K   :action MoveStatementUp<CR>
+nnoremap <leader>J :action MoveStatementDown<CR>
+vnoremap <leader>K   :action MoveStatementUp<CR>
+vnoremap <leader>J :action MoveStatementDown<CR>
+
+" Center screen when jumping to next match
+nnoremap n nzz
+nnoremap N Nzz
+vnoremap n nzz
+vnoremap N Nzz
+
+" Center screen when moving up and down
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
+vnoremap <C-u> <C-u>zz
+vnoremap <C-d> <C-d>zz
+
+" tabs navigation
+nnoremap <a-j> gT
+nnoremap <a-k> gt
+nnoremap <c-s-tab> gT
+nnoremap <c-tab> gt
+
+" clear the search buffer when hitting return
+nnoremap <leader><cr> :nohlsearch<cr>
+nmap <leader>h :NERDTree<cr>
+
+" code Refactoring
+nmap <leader>rr <Action>(RenameElement)
+
+" comment out
+nmap <leader>/ <Action>(CommentByLineComment)
+" nmap <leader>/ <Action>(CommentByBlockComment)
+
+" press `f` to activate AceJump
+nmap ff <Action>(AceAction)
+" press `F` to activate Target Mode
+nmap ft <Action>(AceTargetAction)
+" press `g` to activate Line Mode
+nmap fl <Action>(AceLineAction)
+
+" code navigation
+nmap <leader>j <Action>(MethodUp)
+nmap <leader>k <Action>(MethodDown)
+nmap <leader>l <Action>(HighlightUsagesInFile)
+nmap <leader>n <Action>(NextOccurence)
+
+" split
+nmap <leader>p <Action>(SplitHorizontally)
+nmap <leader>o <Action>(SplitVertically)
+
+" built-in navigation to navigated items works better
+nmap <c-o> <Action>(Back)
+nmap <c-i> <Action>(Forward)
+
+" close editor
+nmap <leader>q <Action>(CloseEditor)
+nmap <leader>Q <Action>(CloseAllEditors)
+nmap <leader>w <Action>(CloseAllEditorsButActive)
+
+" reactivate some IDEA shortcuts
+nmap <c-n> <Action>(SearchEverywhere)
+nmap <c-b> <Action>(ShowUsages)
+nmap <c-s> <Action>(SaveAll)
+
+" docs
+nmap <leader>dd <Action>(QuickJavaDoc)
+nmap <leader>di <Action>(QuickImplementations)
+
+nmap <leader>gi :action GotoImplementation<cr>
+nmap <leader>gd :action GotoDeclaration<cr>
+nmap <leader>gt :action ExpressionTypeInfo<cr>
+nmap <leader>gp :action FileStructurePopup<cr>
+nmap <leader>ga :action GotoAction<CR>
+nmap <leader>gc :action GotoClass<CR>
+nmap <leader>gf :action GotoFile<CR>
+nmap <leader>gs :action GotoSuperMethod<CR>
+
+
+" git
+nmap <leader>vp :action Vcs.Push<cr>
+nmap <leader>vcp :action CheckinProject<cr>
+nmap <leader>vcc :action CommittedChanges.Details<cr>
+nmap <leader>vgm :action Git.Menu<CR>
+nmap <leader>vcw :action ActivateCommitToolWindow<cr>
+
+" file
+nmap <leader>fr <Action>(Run)
+
+" terminal
+nmap <leader>tt :action ActivateTerminalToolWindow<cr>
+
+" switcher
+nmap <leader>E :action Switcher<CR>
+" problems
+nmap <leader>pj :action GoToNextError<cr>
+nmap <leader>pk :action GoToPreviousError<cr>
+
