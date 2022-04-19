@@ -1,0 +1,32 @@
+# Check if zplug is installed
+if [[ ! -d ~/.zplug ]]; then
+  git clone https://github.com/zplug/zplug ~/.zplug
+  source ~/.zplug/init.zsh && zplug update --self
+fi
+
+# Essential
+source ~/.zplug/init.zsh
+
+# Make sure to use double quotes to prevent shell expansion
+# zplug "b4b4r07/zplug", from:github
+# zplug "zdharma/fast-syntax-highlighting"
+# zplug "agkozak/zsh-z"
+# zplug "zsh-users/zsh-completions"
+# zplug "raylee/tldr", from:github, as:command, use:"tldr"
+# zplug "zsh-users/zsh-history-substring-search"
+# zplug "ael-code/zsh-colored-man-pages"
+# zplug "mollifier/anyframe"
+# zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, use:"*linux*amd64*"
+# # Add a bunch more of your favorite packages!
+
+# Install packages that have not been installed yet
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    else
+        echo
+    fi
+fi
+
+zplug load

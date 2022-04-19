@@ -1,0 +1,83 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+export AZURE_SEARCH_KEY=83448173fe2643b2a9fdbcb36bd82fb4
+export SHELL=/usr/bin/zsh
+
+export LANG=en_US.UTF8
+export PATH=/home/mata/.local/bin:$PATH
+## Import locations
+export ZSH_ENV_HOME=$HOME/
+export CONFIG_HOME=$HOME/.config
+export NVIM_HOME=$CONFIG_HOME/nvim
+
+export XDG_CONFIG_HOME=$HOME/.config/
+
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+export PATH="$PATH:/opt/flutter/bin"
+
+export ANDROID_HOME=/opt/android-sdk/
+export ANDROID_SDK_ROOT=/opt/android-sdk/
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools
+# source ~/.config/zsh/themes/lambda-mod.zsh-theme
+
+TLDR_DISABLECOLOR=true
+
+sources=(
+    'aliases'
+    'functions'
+    # 'zplug'
+    'zinit'
+    'fzf'
+    )
+
+for s in "${sources[@]}"; do
+  source $HOME/.config/zsh/include/${s}.zsh
+done
+
+# ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
+
+HISTFILE=~/.histfile
+export HISTSIZE=100000000
+export SAVEHIST=$HISTSIZE
+
+setopt autocd extendedglob nomatch functionargzero hist_ignore_space hist_ignore_all_dups promptsubst
+unsetopt BEEP
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+
+# autoload -Uz compinit
+# compinit
+# End of lines added by compinstall
+source /usr/share/nvm/init-nvm.sh
+
+lazynvm() {
+  unset -f nvm node npm
+  export NVM_DIR=~/.nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+}
+
+nvm() {
+  lazynvm 
+  nvm $@
+}
+
+node() {
+  lazynvm
+  node $@
+}
+
+npm() {
+  lazynvm
+  npm $@
+}
+eval "$(starship init zsh)"
+
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+##########################################
+##########################################
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh

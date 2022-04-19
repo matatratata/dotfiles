@@ -11,7 +11,7 @@ set incsearch # show where search pattern typed so far matches
 # clipboard options Standard clipboard options plus `ideaput`  (default on)
 # - IdeaVim ONLY enable native idea paste action for put operations
 set clipboard+=unnamed 
-set relativenumber # show the line number relative to the line with the cursor
+" set relativenumber # show the line number relative to the line with the cursor
 set visualbell # use visual bell instead of beeping
 " set timeoutlen=1000 ttimeoutlen=0
 set notimeout
@@ -29,6 +29,9 @@ let g:highlightedyank_highlight_duration = "1000"
 let g:highlightedyank_highlight_duration = "-1"
 let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
 
+# remove s mapping
+nnoremap <silent> s 
+
 set NERDTree
 set surround # ys, cs, ds, S
 set which-key # <leader>
@@ -40,6 +43,7 @@ imap jk <Esc>
 vmap jk <Esc>
 imap kj <Esc>
 vmap kj <Esc>
+
 
 " Quit visual mode
 vnoremap v <Esc>
@@ -83,7 +87,7 @@ nmap cc 1S
 nmap ,c yiw
 
 " Reselect last-pasted text
-nnoremap gp `[v`]
+" nnoremap gp `[v`]
 " move line up/down
 nnoremap <leader>K   :action MoveStatementUp<CR>
 nnoremap <leader>J :action MoveStatementDown<CR>
@@ -180,6 +184,5 @@ nmap <leader>tt :action ActivateTerminalToolWindow<cr>
 " switcher
 nmap <leader>E :action Switcher<CR>
 " problems
-nmap <leader>pj :action GoToNextError<cr>
-nmap <leader>pk :action GoToPreviousError<cr>
-
+nnoremap ge :action GotoNextError<CR>
+nnoremap gE :action GoToPreviousError<CR>
